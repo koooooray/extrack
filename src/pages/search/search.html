@@ -1,0 +1,15 @@
+<ion-header>
+  <ion-navbar>
+      <ion-input
+        type="text"
+        placeholder="Search"
+        [formControl]="filterInputControl"></ion-input>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <div class="spinner-container">
+    <ion-spinner class="spinner-primary" [hidden]="!loading"></ion-spinner>
+  </div>
+  <expense-item *ngFor="let expense of filteredExpenses" [expense]="expense"></expense-item>
+</ion-content>
+
