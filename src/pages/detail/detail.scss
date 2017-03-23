@@ -1,2 +1,10 @@
-page-list {
+.expense-editor{
+  margin-top: 0px !important;
+  .category-selector{
+    margin-bottom: -10px !important;
+    cursor: pointer;
+  }
+  ion-item.not-floating{
+    margin-top: 28px !important;
+  }
 }

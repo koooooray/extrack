@@ -12,7 +12,6 @@
       <button (click)="onSearchClicked()" ion-button icon-only color="royal">
         <ion-icon name="search"></ion-icon>
       </button>
-
     </ion-buttons>
   </ion-navbar>
 
@@ -24,11 +23,9 @@
     <expense-item *ngFor="let expense of expenses" [expense]="expense"></expense-item>
   </ion-list>
 
-  <ion-fab right bottom>
+  <ion-fab right bottom (click)="onAddExpenseClicked()">
     <button ion-fab color="light"><ion-icon name="add" color="primary"></ion-icon></button>
   </ion-fab>
-
-
 
 
 </ion-content>

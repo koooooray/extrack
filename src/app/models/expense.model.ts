@@ -1,9 +1,12 @@
+import * as moment from "moment"
+import Moment = moment.Moment;
+
 export interface Expense {
-  Title: string;
+  Location: string;
   Description: string;
   Id: string;
   Type: string;
-  Date: Date;
+  Date: Moment;
   Photo?: string;
-  Amount: number;
+  Amount?: number;
 }

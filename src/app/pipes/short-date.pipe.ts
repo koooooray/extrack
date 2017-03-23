@@ -1,25 +1,19 @@
 import {PipeTransform, Pipe} from "@angular/core";
-import {DatePipe} from "@angular/common";
+import * as moment from "moment"
+import Moment = moment.Moment;
 
 @Pipe({
   name: "shortdate"
 })
 export class ShortDatePipe implements PipeTransform{
-  constructor(private datePipe: DatePipe){}
 
-  transform(value: any, ...args: any[]): string {
-    const date = new Date(value);
-    const now = new Date();
-    let ampm = "";
-    let format = "dd/MM/yyyy";
-    if(date.toDateString() === now.toDateString()){
-      const hours = date.getHours();
-      ampm = hours >= 12 ? ' PM' : ' AM';
-      format = "hh:mm";
+  transform(value: Moment, ...args: any[]): string {
+    var nowMoment = moment();
+    if(moment(value).isSame(nowMoment, 'day')){
+      return value.format("dddd HH:mm a");
+    }else if (moment(value).isSame(nowMoment, 'year')){
+      return value.format("D MMMM");
     }
-    else if(date.getFullYear() === now.getFullYear()){
-      format = "MMM dd";
-    }
-    return `${this.datePipe.transform(date, format)}${ampm}`;
+    return value.format("D MMM YYYY");
   }
 }

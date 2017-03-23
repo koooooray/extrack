@@ -1,43 +1,47 @@
 import {Expense} from "../models/expense.model";
+import uuidV4 from "uuid/v4"
+import * as moment from "moment"
+import Moment = moment.Moment;
 
 export class ExpenseService{
   private expenses : Expense[] = [{
-    Title: "IKEA",
+    Location: "IKEA",
     Description: "IKEA",
     Id: "1",
     Type: "Home",
-    Date: new Date(),
+    Date: this.getNowDate(),
     Amount: 1050
   },{
-    Title: "Benzin",
+    Location: "Benzin",
     Description: "Benzin nach München",
     Id: "2",
     Type: "Auto",
-    Date: new Date(),
+    Date: this.getNowDate(),
     Amount: 1050
   },{
-    Title: "Supermerket",
+    Location: "Supermerket",
     Description: "Kaisers und DM",
     Id: "3",
     Type: "Home",
-    Date: new Date(),
+    Date: this.getNowDate(),
     Amount: 56
   },{
-    Title: "Skiurlaub",
+    Location: "Skiurlaub",
     Description: "Skipässe und Hotel in Zell",
     Id: "4",
     Type: "Holidays",
-    Date: new Date(),
+    Date: this.getNowDate(),
     Amount: 900
   }];
-  private emptyExpense: Expense = {
-    Title: "",
-    Description: "",
-    Id: "",
-    Type: "",
-    Date: new Date(),
-    Amount: 0
-  };
+  private emptyExpense(): Expense{
+    return {
+      Location: "",
+      Description: "",
+      Id: uuidV4(),
+      Type: "",
+      Date: this.getNowDate(),
+    };
+  }
 
   getExpenses():Promise<Expense[]>{
     return Promise.resolve(this.expenses);
@@ -48,7 +52,19 @@ export class ExpenseService{
     if(expense){
       return Promise.resolve(expense);
     }else{
-      return Promise.resolve(Object.assign({}, this.emptyExpense));
+      return Promise.resolve(Object.assign({}, this.emptyExpense()));
+    }
+  }
+
+  addUpdateExpense(expense: Expense){
+    const currentExpense = this.expenses.find(exp => exp.Id === expense.Id);
+    if(currentExpense){
+      Object.assign(currentExpense, expense);
+      return Promise.resolve(currentExpense);
+    }else{
+      this.expenses.push(expense);
+      const currentExpense = this.expenses.find(exp => exp.Id === expense.Id);
+      return Promise.resolve(currentExpense);
     }
   }
 
@@ -57,6 +73,10 @@ export class ExpenseService{
     if(index > -1){
       this.expenses.splice(index, 1);
     }
+  }
+
+  getNowDate(): Moment{
+    return moment();
   }
 
 }

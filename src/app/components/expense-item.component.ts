@@ -11,9 +11,9 @@ import {UserConfigurationService} from "../services/user-configuration.service";
     <img src="../../assets/images/avatar.png">
   </ion-avatar>
   <h2>{{expense.Amount | currency:currency:true}}</h2>
-  <h5>{{expense.Title}}</h5>
+  <h5>{{expense.Description}}</h5>
   <ion-note item-right>
-    <div class="date" margin-top text-right>{{expense.Date | date | shortdate }}</div>
+    <div class="date" text-right>{{expense.Date | shortdate }}</div>
     <div class="type" text-right>{{expense.Type }}</div>
   </ion-note>
 </button>
@@ -39,8 +39,7 @@ export class ExpenseItemComponent implements OnInit{
 
   constructor(private configurationService: UserConfigurationService, private navController: NavController){}
   onClickItem(expense: Expense){
-    console.log(expense);
-    this.navController.push(DetailPage);
+    this.navController.push(DetailPage, {"Id": expense.Id });
   }
   ngOnInit(): void {
     this.configurationService.getUserCurrency().then(result => this.currency = result);
