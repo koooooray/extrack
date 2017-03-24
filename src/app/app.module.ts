@@ -7,10 +7,10 @@ import {ListPage} from "../pages/list/list";
 import {ExpenseService} from "./services/expense.service";
 import {UserConfigurationService} from "./services/user-configuration.service";
 import {SearchPage} from "../pages/search/search";
-import {ExpenseItemComponent} from "./components/expense-item.component";
 import {DetailPage} from "../pages/detail/detail";
-import {ShortDatePipe} from "./pipes/short-date.pipe";
 import {DatePipe} from "@angular/common";
+import {ExpenseItemComponent} from "../components/expense-item/expense-item";
+import {ShortDatePipe} from "../pipes/short-date";
 
 @NgModule({
   declarations: [

@@ -1,15 +1,22 @@
 <ion-header>
-  <ion-navbar>
-      <ion-input
-        type="text"
-        placeholder="Search"
-        [formControl]="filterInputControl"></ion-input>
-  </ion-navbar>
-</ion-header>
-<ion-content>
-  <div class="spinner-container">
-    <ion-spinner class="spinner-primary" [hidden]="!loading"></ion-spinner>
-  </div>
-  <expense-item *ngFor="let expense of filteredExpenses" [expense]="expense"></expense-item>
-</ion-content>
 
+  <ion-searchbar
+    #searchBarInput
+    color="primary"
+    [(ngModel)]="expenseFilter"
+    [showCancelButton]="true"
+    (ionInput)="onInput($event.target)"
+    (ionCancel)="onCancel($event)"
+    animated="true">
+  </ion-searchbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <div *ngIf="loading" style="background-color: #f53d3d">test</div>
+  <div *ngIf="!loading" style="background-color: #32db64">test</div>
+
+
+</ion-content>

@@ -8,8 +8,11 @@ export class UserConfigurationService{
     ]
   };
 
-  getUserCurrency(): Promise<string>{
-    return Promise.resolve(this.config.Currency)
+  getUserConfiguration(): Promise<UserConfiguration>{
+    return Promise.resolve(this.config)
   }
 
+  addCategory(newCategory: string) {
+    this.config.ExpenseCategories.push(newCategory);
+  }
 }

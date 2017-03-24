@@ -1,38 +1,39 @@
 import {Expense} from "../models/expense.model";
-import uuidV4 from "uuid/v4"
-import * as moment from "moment"
+import uuidV4 from "uuid/v4";
+import * as moment from "moment";
 import Moment = moment.Moment;
 
 export class ExpenseService{
   private expenses : Expense[] = [{
     Location: "IKEA",
     Description: "IKEA",
-    Id: "1",
+    Id: uuidV4(),
     Type: "Home",
     Date: this.getNowDate(),
     Amount: 1050
   },{
     Location: "Benzin",
     Description: "Benzin nach München",
-    Id: "2",
+    Id: uuidV4(),
     Type: "Auto",
     Date: this.getNowDate(),
     Amount: 1050
   },{
     Location: "Supermerket",
     Description: "Kaisers und DM",
-    Id: "3",
+    Id: uuidV4(),
     Type: "Home",
     Date: this.getNowDate(),
     Amount: 56
   },{
     Location: "Skiurlaub",
     Description: "Skipässe und Hotel in Zell",
-    Id: "4",
+    Id: uuidV4(),
     Type: "Holidays",
     Date: this.getNowDate(),
     Amount: 900
   }];
+
   private emptyExpense(): Expense{
     return {
       Location: "",
@@ -75,8 +76,8 @@ export class ExpenseService{
     }
   }
 
-  getNowDate(): Moment{
-    return moment();
+  getNowDate(): string{
+    return moment().toISOString();
   }
 
 }

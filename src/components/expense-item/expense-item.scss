@@ -1,0 +1,13 @@
+expense-item {
+  h2 { font-weight: bold; }
+  .date {
+    align-self: flex-start;
+    font-size: 1.2rem;
+    color: map-get($colors, 'primary') !important;
+  }
+  .type {
+    align-self: flex-end;
+    font-size: 1.6rem;
+    font-weight: bold;
+  }
+}

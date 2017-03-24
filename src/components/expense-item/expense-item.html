@@ -1,0 +1,16 @@
+<button ion-item (click)="onClickItem(expense)">
+  <ion-avatar item-left>
+    <img src="assets/images/avatar.png">
+  </ion-avatar>
+  <h2>{{expense.Amount | currency:currency:true}}</h2>
+  <h5>{{expense.Description}}</h5>
+  <ion-note item-right>
+    <div class="date" text-right>
+      {{expense.Date | shortdate }}
+    </div>
+    <div class="type" text-right>
+      {{expense.Type }}
+      <!--<ion-icon class="fav-star" name="star"></ion-icon>-->
+    </div>
+  </ion-note>
+</button>

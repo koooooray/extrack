@@ -38,7 +38,6 @@
     <ion-item>
       <ion-label floating>Category</ion-label>
       <ion-input type="text" [(ngModel)]="expense.Type"></ion-input>
-      <ion-icon name="arrow-dropdown-circle" item-right class="category-selector"></ion-icon>
     </ion-item>
     <ion-item no-padding class="not-floating">
       <ion-label>Use Current Date</ion-label>
@@ -48,7 +47,13 @@
       <ion-label>Date</ion-label>
       <ion-datetime displayFormat="DD MMM YYYY h mm A" pickerFormat="DD MMM YYYY h mm A" [(ngModel)]="expense.Date"></ion-datetime>
     </ion-item>
+    <ion-item>
+      <ion-icon name="arrow-dropdown-circle" item-right class="category-selector" (click)="onSelectCategoriesClicked()"></ion-icon>
+    </ion-item>
     <ion-item hidden>
+      <ion-select class="userCategorySelector" (ionChange)="onChangeSelectCategories()" [(ngModel)]="selectedType" #userCategorySelector>
+        <ion-option *ngFor="let cat of expenseCategories">{{cat}}</ion-option>
+      </ion-select>
     </ion-item>
   </ion-list>
 
@@ -73,7 +78,7 @@
       <p>
         {{expense.Description}}
       </p>
-      <img margin-top src="../assets/images/testimage.png"/>
+      <img margin-top src="assets/images/testimage.png"/>
       <ion-row>
         <ion-col text-right no-padding>
           <button ion-button margin-top item-right (click)="onEditClicked()">

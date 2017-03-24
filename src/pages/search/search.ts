@@ -1,38 +1,40 @@
-import {Component} from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
-import {FormControl} from "@angular/forms";
-import 'rxjs/add/operator/debounceTime';
-import {Expense} from "../../app/models/expense.model";
+import {Component, ViewChild} from '@angular/core';
+import {NavController, NavParams, Searchbar} from 'ionic-angular';
 import {ExpenseService} from "../../app/services/expense.service";
+
 @Component({
   selector: 'page-search',
   templateUrl: 'search.html'
 })
 export class SearchPage {
 
-  private filteredExpenses: Expense[];
-  private loading: boolean;
-  //private filterInput: string;
-  private filterInputControl : FormControl;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private expenseService: ExpenseService) {
-    this.filterInputControl = new FormControl();
-  }
+  private expenseFilter: string = "";
+  private loading = false;
+  @ViewChild("searchBarInput") searchBar : Searchbar;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private expenseService: ExpenseService) {}
 
   ionViewDidLoad() {
-    this.filterInputControl.valueChanges.subscribe(() => {
-      this.loading = true;
-      this.filteredExpenses = [];
-    });
-    this.filterInputControl.valueChanges
-      .debounceTime(500)
-      .subscribe(newVal =>
-        {
-          this.filteredExpenses = [];
-          this.expenseService.getExpenses().then(result => {
-            this.filteredExpenses = result;
-            this.loading = false;
-          });
-        }
-      );
+    console.log('ionViewDidLoad SearchPage');
+    console.log(this.searchBar);
   }
+
+  onInput(e):void{
+    if(e.value){
+      this.loading = true;
+      setTimeout(()=>{
+        this.expenseService.getExpenses().then(res => {
+          this.loading = false;
+        });
+      }, 1000);
+    }
+    console.log("input", e)
+  }
+
+  onCancel(e):void{
+
+    console.log("onCancel", e)
+
+  }
+
 }
