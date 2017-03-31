@@ -11,6 +11,9 @@ import {DetailPage} from "../pages/detail/detail";
 import {DatePipe} from "@angular/common";
 import {ExpenseItemComponent} from "../components/expense-item/expense-item";
 import {ShortDatePipe} from "../pipes/short-date";
+import {ReactiveFormsModule} from "@angular/forms";
+import {LoadingService} from "./services/loading.service";
+import {LoadingComponent} from "../components/loading/loading";
 
 @NgModule({
   declarations: [
@@ -19,10 +22,12 @@ import {ShortDatePipe} from "../pipes/short-date";
     SearchPage,
     DetailPage,
     ExpenseItemComponent,
+    LoadingComponent,
     ShortDatePipe
   ],
   imports: [
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    ReactiveFormsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -33,6 +38,7 @@ import {ShortDatePipe} from "../pipes/short-date";
   ],
   providers: [
     ExpenseService,
+    LoadingService,
     UserConfigurationService,
     DatePipe,
     StatusBar,

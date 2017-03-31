@@ -1,5 +1,17 @@
 page-search {
-  .searchbar-input{
-    box-shadow: none !important;
+  ion-navbar{
+    .toolbar-background{
+      background-color: #fff !important;
+    }
+  }
+  ion-item{
+    padding-left: 0px !important;
+    .item-inner{
+      border-bottom: none !important;
+      box-shadow: none !important;
+      .text-input-clear-icon{
+        background-color: transparent !important;
+      }
+    }
   }
 }

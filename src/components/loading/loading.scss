@@ -1,0 +1,23 @@
+loading {
+  .back-drop{
+    position: relative;
+    height: 100%;
+    background-color: white;
+    opacity: 0.6;
+  }
+  ion-spinner{
+    opacity: 1 !important;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    height: 85px;
+    text-align: center;
+    width: 19% !important;
+    svg {
+      height: 85px !important;
+    }
+  }
+}

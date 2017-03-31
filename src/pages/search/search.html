@@ -1,22 +1,17 @@
 <ion-header>
 
-  <ion-searchbar
-    #searchBarInput
-    color="primary"
-    [(ngModel)]="expenseFilter"
-    [showCancelButton]="true"
-    (ionInput)="onInput($event.target)"
-    (ionCancel)="onCancel($event)"
-    animated="true">
-  </ion-searchbar>
+  <ion-navbar>
+    <ion-item>
+      <ion-input placeholder="Search..." clearInput  [formControl]="filter"></ion-input>
+    </ion-item>
+  </ion-navbar>
 
 </ion-header>
-
-
-<ion-content padding>
-
-  <div *ngIf="loading" style="background-color: #f53d3d">test</div>
-  <div *ngIf="!loading" style="background-color: #32db64">test</div>
-
-
+<ion-content>
+  <ion-list>
+    <expense-item *ngFor="let expense of expenses | async" [expense]="expense"></expense-item>
+  </ion-list>
+  <span *ngIf="(expenses | async)?.length === 0" padding>
+    Your search did not match any results...
+  </span>
 </ion-content>

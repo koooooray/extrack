@@ -48,7 +48,6 @@ export class DetailPage {
 
   onSelectCategoriesClicked(): void{
     this.userCategorySelector.open();
-    console.log(this.userCategorySelector);
   }
 
   onChangeSelectCategories(): void{

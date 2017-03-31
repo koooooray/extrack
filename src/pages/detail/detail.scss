@@ -1,7 +1,8 @@
 .expense-editor{
   margin-top: 0px !important;
   .category-selector{
-    margin-bottom: -10px !important;
+    padding: 10px !important;
+    height: inherit !important;
     cursor: pointer;
   }
   ion-item.not-floating{
