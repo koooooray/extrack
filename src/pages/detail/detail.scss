@@ -11,4 +11,7 @@
   .userCategorySelector{
     display: none;
   }
+  .delete-action-button{
+    color: map-get($colors, 'danger') !important;
+  }
 }

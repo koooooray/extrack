@@ -21,7 +21,7 @@ export class ExpenseItemComponent implements OnInit{
       this.navController.push(DetailPage, {"Id": expense.Id });
     }
     ngOnInit(): void {
-      this.configurationService.getUserConfiguration().then(result => this.currency = result && result.Currency ? result.Currency : "EUR");
-  }
+      this.currency = this.configurationService.UserConfig.Currency;
+    }
 
 }

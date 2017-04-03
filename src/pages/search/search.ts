@@ -19,7 +19,7 @@ export class SearchPage {
   private expenses: Observable<Expense[]>;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private expenseService: ExpenseService) {
-    this.expenses = this.filter.valueChanges
+    /*this.expenses = this.filter.valueChanges
       .debounceTime(700)
       .distinctUntilChanged()
       .switchMap(filter => {
@@ -29,6 +29,6 @@ export class SearchPage {
         } else {
           return this.expenses;
         }
-      });
+      });*/
   }
 }

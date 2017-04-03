@@ -4,16 +4,14 @@
   See http://ionicframework.com/docs/v2/components/#navigation for more info on
   Ionic pages and navigation.
 -->
+
 <ion-header>
 
   <ion-navbar color="primary">
-    <ion-title>My Expense</ion-title>
+    <ion-title>Expense: <span>{{expense.Amount}}</span></ion-title>
     <ion-buttons end>
-      <button (click)="onSaveClicked()" ion-button icon-only color="royal" [hidden]="!isInEditMode">
+      <button (click)="onSaveClicked()" ion-button icon-only color="royal" [disabled]="!expenseForm.valid">
         <ion-icon name="checkmark"></ion-icon>
-      </button>
-      <button (click)="onSaveClicked()" ion-button icon-only color="royal" [hidden]="isInEditMode">
-        <ion-icon name="compose"></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>
@@ -21,43 +19,52 @@
 </ion-header>
 
 
-<ion-content *ngIf="!loading">
-  <ion-list inset class="expense-editor" *ngIf="isInEditMode">
-    <ion-item>
-      <ion-label floating>Amount</ion-label>
-      <ion-input type="number" [(ngModel)]="expense.Amount"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label floating>Description</ion-label>
-      <ion-input type="text" [(ngModel)]="expense.Description"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label floating>Location</ion-label>
-      <ion-input type="text" [(ngModel)]="expense.Location"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label floating>Category</ion-label>
-      <ion-input type="text" [(ngModel)]="expense.Type"></ion-input>
-      <button ion-button outline icon-only name="arrow-dropdown-circle" item-right class="category-selector" (click)="onSelectCategoriesClicked()">
-        <ion-icon name="arrow-dropdown"></ion-icon>
-      </button>
-    </ion-item>
-    <ion-item no-padding class="not-floating">
-      <ion-label>Use Current Date</ion-label>
-      <ion-toggle checked="true" [(ngModel)]="useCurrentDate"></ion-toggle>
-    </ion-item>
-    <ion-item no-padding class="not-floating" [hidden]="useCurrentDate">
-      <ion-label>Date</ion-label>
-      <ion-datetime displayFormat="DD MMM YYYY h mm A" pickerFormat="DD MMM YYYY h mm A" [(ngModel)]="expense.Date"></ion-datetime>
-    </ion-item>
-    <ion-item hidden>
-      <ion-select class="userCategorySelector" (ionChange)="onChangeSelectCategories()" [(ngModel)]="selectedType" #userCategorySelector>
-        <ion-option *ngFor="let cat of expenseCategories">{{cat}}</ion-option>
-      </ion-select>
-    </ion-item>
-  </ion-list>
+<ion-content>
+  <ion-list inset class="expense-editor">
+    <form novalidate #expenseForm="ngForm">
+      <ion-item>
+        <ion-label floating>Amount</ion-label>
+        <ion-input type="number" [(ngModel)]="expense.Amount" name="amount" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Description</ion-label>
+        <ion-input type="text" [(ngModel)]="expense.Description" name="description" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Location</ion-label>
+        <ion-input type="text" [(ngModel)]="expense.Location" name="location"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Category</ion-label>
+        <ion-input type="text" [(ngModel)]="expense.Type" name="category"></ion-input>
+        <button ion-button outline icon-only name="arrow-dropdown-circle" item-right class="category-selector" (click)="onSelectCategoriesClicked()">
+          <ion-icon name="arrow-dropdown"></ion-icon>
+        </button>
+      </ion-item>
+      <ion-item no-padding class="not-floating">
+        <ion-label>Use Current Date</ion-label>
+        <ion-toggle checked="true" [(ngModel)]="useCurrentDate" name="usecurrentdate"></ion-toggle>
+      </ion-item>
+      <ion-item no-padding class="not-floating" [hidden]="useCurrentDate">
+        <ion-label>Date</ion-label>
+        <ion-datetime displayFormat="DD MMM YYYY h mm A" pickerFormat="DD MMM YYYY h mm A" [(ngModel)]="expense.Date" name="specialdate"></ion-datetime>
+      </ion-item>
+      <ion-item hidden>
+        <ion-select class="userCategorySelector" (ionChange)="onChangeSelectCategories()" [(ngModel)]="selectedType" #userCategorySelector name="categoryselector">
+          <ion-option *ngFor="let cat of expenseCategories">{{cat}}</ion-option>
+        </ion-select>
+      </ion-item>
 
-  <ion-card *ngIf="!isInEditMode">
+    </form>
+
+  </ion-list>
+  <ion-row>
+    <ion-col padding>
+      <button ion-button color="danger" block (click)="onDeleteClicked()">Delete Expense</button>
+    </ion-col>
+  </ion-row>
+
+  <!--<ion-card *ngIf="!isInEditMode">
     <ion-card-header class="expense-card-header">
         <ion-row no-padding>
           <ion-col no-padding>
@@ -87,7 +94,7 @@
         </ion-col>
       </ion-row>
     </ion-card-content>
-  </ion-card>
+  </ion-card>-->
 
 
 

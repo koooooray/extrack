@@ -14,11 +14,11 @@
 
 <ion-content>
   <ion-list>
-    <expense-item *ngFor="let expense of expenses" [expense]="expense"></expense-item>
+    <expense-item *ngFor="let expense of expenses | async" [expense]="expense"></expense-item>
   </ion-list>
 
   <ion-fab right bottom (click)="onAddExpenseClicked()">
-    <button ion-fab color="light"><ion-icon name="add" color="primary"></ion-icon></button>
+    <button ion-fab color="primary"><ion-icon name="add" color="light"></ion-icon></button>
   </ion-fab>
 
 </ion-content>

@@ -4,6 +4,7 @@ import {Expense} from "../../app/models/expense.model";
 import {NavController} from "ionic-angular";
 import {SearchPage} from "../search/search";
 import {DetailPage} from "../detail/detail";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'page-list',
@@ -11,13 +12,14 @@ import {DetailPage} from "../detail/detail";
 })
 export class ListPage {
 
-  private expenses : Expense[] = [];
+  private expenses: Observable<Expense[]>;
   constructor(private expenseService: ExpenseService, private navController: NavController) {}
 
   ionViewDidLoad() {
-    this.expenseService.getExpenses().then(result => {
-      this.expenses = result
-    });
+  }
+
+  ionViewWillEnter(){
+    this.expenses = this.expenseService.getExpenses();
   }
 
   onSearchClicked(){
@@ -27,5 +29,6 @@ export class ListPage {
   onAddExpenseClicked(){
     this.navController.push(DetailPage, {"Id": undefined });
   }
+
 
 }
