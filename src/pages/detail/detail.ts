@@ -1,11 +1,13 @@
 import {Component, ViewChild} from '@angular/core';
 import {Expense} from "../../app/models/expense.model";
 import {ExpenseService} from "../../app/services/expense.service";
-import {NavParams, Select, NavController, ActionSheetController} from "ionic-angular";
+import {NavParams, Select, NavController, ActionSheetController, Platform} from "ionic-angular";
 import * as moment from "moment"
 import Moment = moment.Moment;
 import {UserConfigurationService} from "../../app/services/user-configuration.service";
 import {FormBuilder, Validators, FormGroup} from "@angular/forms";
+import {Camera, CameraOptions} from "@ionic-native/camera";
+import {DomSanitizer} from "@angular/platform-browser";
 
 @Component({
   selector: 'page-list',
@@ -25,7 +27,10 @@ export class DetailPage {
               private expenseService: ExpenseService,
               private navparam: NavParams,
               private nav: NavController,
-              private actionSheetCtrl: ActionSheetController){}
+              private actionSheetCtrl: ActionSheetController,
+              private camera: Camera,
+              private sanitizer: DomSanitizer,
+              private platform: Platform){}
 
   ionViewDidLoad() {
     const id = this.navparam.get("Id");
@@ -56,7 +61,7 @@ export class DetailPage {
   }
 
   onDeleteClicked():void{
-    let actionSheet = this.actionSheetCtrl.create({
+    this.actionSheetCtrl.create({
       title: 'Are you sure?',
       buttons: [
         {
@@ -76,8 +81,73 @@ export class DetailPage {
           }
         }
       ]
+    }).present();
+  }
+  onDeletePhoto(event){
+    event.stopPropagation();
+    this.actionSheetCtrl.create({
+      title: 'Do You want to delete this Photo?',
+      buttons: [
+        {
+          text: 'Yes, delete',
+          role: 'destructive',
+          cssClass: "delete-action-button",
+          icon: "trash",
+          handler: () => {
+            this.expense.Photo = "";
+          }
+        },{
+          text: 'Cancel',
+          role: 'cancel',
+          icon: "close",
+          handler: () => {
+          }
+        }
+      ]
+    }).present();
+  }
+  onPromtPhoto(){
+    if(!this.platform.is('cordova')){
+      return;
+    }
+    this.actionSheetCtrl.create({
+      title: 'Do You want to change this Photo?',
+      buttons: [
+        {
+          text: 'Yes, change',
+          role: 'destructive',
+          cssClass: "delete-action-button",
+          icon: "trash",
+          handler: () => {
+            this.onTakePhoto();
+          }
+        },{
+          text: 'Cancel',
+          role: 'cancel',
+          icon: "close",
+          handler: () => {
+          }
+        }
+      ]
+    }).present();
+  }
+  onTakePhoto(){
+    if(!this.platform.is('cordova')){
+      return;
+    }
+    const options: CameraOptions = {
+      quality: 50,
+      allowEdit: true,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE
+    };
+
+    this.camera.getPicture(options).then((picture)=>{
+      this.expense.Photo = picture;
+    }, (error)=>{
+      // handle
     });
-    actionSheet.present();
   }
 
 }

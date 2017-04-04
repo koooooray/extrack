@@ -5,6 +5,7 @@ import {NavController} from "ionic-angular";
 import {SearchPage} from "../search/search";
 import {DetailPage} from "../detail/detail";
 import {Observable} from "rxjs";
+import {GroupedExpenses} from "../../app/models/groupedexpenses.model";
 
 @Component({
   selector: 'page-list',
@@ -12,14 +13,11 @@ import {Observable} from "rxjs";
 })
 export class ListPage {
 
-  private expenses: Observable<Expense[]>;
+  private expenseGroups: Observable<GroupedExpenses>;
   constructor(private expenseService: ExpenseService, private navController: NavController) {}
 
-  ionViewDidLoad() {
-  }
-
   ionViewWillEnter(){
-    this.expenses = this.expenseService.getExpenses();
+    this.expenseGroups = this.expenseService.getGroupedExpenses();
   }
 
   onSearchClicked(){

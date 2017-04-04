@@ -50,52 +50,28 @@
         <ion-datetime displayFormat="DD MMM YYYY h mm A" pickerFormat="DD MMM YYYY h mm A" [(ngModel)]="expense.Date" name="specialdate"></ion-datetime>
       </ion-item>
       <ion-item hidden>
+        <ion-label>Category</ion-label>
         <ion-select class="userCategorySelector" (ionChange)="onChangeSelectCategories()" [(ngModel)]="selectedType" #userCategorySelector name="categoryselector">
           <ion-option *ngFor="let cat of expenseCategories">{{cat}}</ion-option>
         </ion-select>
       </ion-item>
-
     </form>
-
+    <ion-card margin-top (click)="onPromtPhoto()" class="expense-photo" *ngIf="expense.Photo">
+      <img [src]="sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64, ' + expense.Photo)"/>
+      <!--<img src="../../assets/images/testimage.png"/>-->
+      <button ion-button icon-only color="danger" (click)="onDeletePhoto($event)">
+        <ion-icon name="trash"></ion-icon>
+      </button>
+    </ion-card>
   </ion-list>
+  <ion-row>
+    <ion-col padding *ngIf="platform.is('cordova')">
+      <button ion-button color="primary" block (click)="onTakePhoto()" *ngIf="!expense.Photo">Add a Photo</button>
+    </ion-col>
+  </ion-row>
   <ion-row>
     <ion-col padding>
       <button ion-button color="danger" block (click)="onDeleteClicked()">Delete Expense</button>
     </ion-col>
   </ion-row>
-
-  <!--<ion-card *ngIf="!isInEditMode">
-    <ion-card-header class="expense-card-header">
-        <ion-row no-padding>
-          <ion-col no-padding>
-            <ion-card-title>
-              {{expense.Amount | currency:currency:true}}
-            </ion-card-title>
-          </ion-col>
-          <ion-col>
-            <ion-note item-right>
-              <div class="date" text-right>{{expense.Date | shortdate }}</div>
-              <div class="type" text-right>{{expense.Type }}</div>
-            </ion-note>
-          </ion-col>
-        </ion-row>
-    </ion-card-header>
-
-    <ion-card-content>
-      <p>
-        {{expense.Description}}
-      </p>
-      <img margin-top src="assets/images/testimage.png"/>
-      <ion-row>
-        <ion-col text-right no-padding>
-          <button ion-button margin-top item-right (click)="onEditClicked()">
-            edit expense
-          </button>
-        </ion-col>
-      </ion-row>
-    </ion-card-content>
-  </ion-card>-->
-
-
-
 </ion-content>

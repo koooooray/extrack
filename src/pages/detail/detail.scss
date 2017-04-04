@@ -14,4 +14,15 @@
   .delete-action-button{
     color: map-get($colors, 'danger') !important;
   }
+  .expense-photo{
+    margin-left: 0px;
+    margin-right: 0px;
+    width: 100%;
+    position: relative;
+    button{
+      position: absolute;
+      top: 5px;
+      right: 5px;
+    }
+  }
 }

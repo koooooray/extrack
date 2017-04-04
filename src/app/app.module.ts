@@ -14,6 +14,9 @@ import {ShortDatePipe} from "../pipes/short-date";
 import {ReactiveFormsModule} from "@angular/forms";
 import {LoadingService} from "./services/loading.service";
 import {LoadingComponent} from "../components/loading/loading";
+import {Camera} from "@ionic-native/camera";
+import {FocusDirective} from "../components/focus/focus";
+import {Keyboard} from "@ionic-native/keyboard";
 
 @NgModule({
   declarations: [
@@ -37,6 +40,8 @@ import {LoadingComponent} from "../components/loading/loading";
     DetailPage
   ],
   providers: [
+    Camera,
+    Keyboard,
     ExpenseService,
     LoadingService,
     UserConfigurationService,

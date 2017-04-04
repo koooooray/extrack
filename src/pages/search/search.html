@@ -2,14 +2,14 @@
 
   <ion-navbar>
     <ion-item>
-      <ion-input placeholder="Search..." clearInput  [formControl]="filter"></ion-input>
+      <ion-input placeholder="Search..." clearInput [formControl]="filter" #focusInput></ion-input>
     </ion-item>
   </ion-navbar>
 
 </ion-header>
 <ion-content>
   <ion-list>
-    <expense-item *ngFor="let expense of expenses | async" [expense]="expense"></expense-item>
+    <expense-item *ngFor="let expense of expenses | async" [expense]="expense" [filter]="filterText"></expense-item>
   </ion-list>
   <span *ngIf="(expenses | async)?.length === 0" padding>
     Your search did not match any results...

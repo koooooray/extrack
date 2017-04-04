@@ -20,7 +20,8 @@ export class UserConfigurationService extends DatabaseService{
       ExpenseCategories: [
         "Home", "Holidays", "Auto"
       ],
-      Id: 0
+      Id: 0,
+      Colors: {}
     };
 
     return this.userConfiguration.toArray()
@@ -28,6 +29,9 @@ export class UserConfigurationService extends DatabaseService{
         if(res && res.length > 0){
           this.UserConfig = res[0];
         }else {
+          for (var i = 33; i <= 126; i++) {
+            newConfig.Colors["char" + i] = '#'+Math.floor(Math.random()*16777215).toString(16);
+          };
           this.UserConfig = newConfig;
           this.userConfiguration.add(newConfig);
         }
@@ -35,5 +39,9 @@ export class UserConfigurationService extends DatabaseService{
       .catch(ex=>{
         console.log(ex);
       });
+  }
+
+  getColor(char: number) : string{
+    return this.UserConfig.Colors["char" + char];
   }
 }

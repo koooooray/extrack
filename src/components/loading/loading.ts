@@ -9,7 +9,6 @@ export class LoadingComponent {
 
   constructor(private loadingService: LoadingService) {
     this.loadingService.loading$.subscribe(isVisible => {
-      console.log(isVisible);
       this.visible = isVisible;
     });
   }

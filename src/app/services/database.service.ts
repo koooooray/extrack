@@ -9,8 +9,8 @@ export class DatabaseService extends Dexie{
 
   constructor(){
     super("expense_tracker");
-    this.version(1).stores({
-      expenses: "Id, Date",
+    this.version(1.1).stores({
+      expenses: "Id, Description, Date, Type, Amount",
       userConfiguration: "Id"
     })
   }

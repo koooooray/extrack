@@ -13,8 +13,19 @@
 
 
 <ion-content>
-  <ion-list>
-    <expense-item *ngFor="let expense of expenses | async" [expense]="expense"></expense-item>
+  <ion-list *ngFor="let expenseGroup of expenseGroups | async">
+
+    <ion-list-header no-margin margin-top>
+      <h1 color="primary">{{expenseGroup.Date}}</h1>
+    </ion-list-header>
+
+    <!--<ion-item *ngFor="let expense of expenses | async">{{expense.Date}}</ion-item>-->
+
+    <expense-item *ngFor="let expense of expenseGroup.Expenses" [expense]="expense"></expense-item>
+    <!--<ion-list-header no-margin margin-top>
+      <h2 color="primary">Yesterday</h2>
+    </ion-list-header>
+    <expense-item *ngFor="let expense of expenses | async" [expense]="expense"></expense-item>-->
   </ion-list>
 
   <ion-fab right bottom (click)="onAddExpenseClicked()">
